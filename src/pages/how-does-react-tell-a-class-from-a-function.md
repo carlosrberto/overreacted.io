@@ -2,10 +2,10 @@
 title: How Does React Tell a Class from a Function?
 date: '2018-12-02'
 langs: ['en', 'ja']
-spoiler: We talk about classes, new, instanceof, prototype chains, and API design.
+spoiler: Falaremos sobre classes, new, instanceof, cadei de protótipos, e design de API.
 ---
 
-Consider this `Greeting` component which is defined as a function:
+Considere o componente `Greeting` que foi definido como uma função:
 
 ```jsx
 function Greeting() {
@@ -13,7 +13,7 @@ function Greeting() {
 }
 ```
 
-React also supports defining it as a class:
+O React também suporta que nós definamos ele como uma classe:
 
 ```jsx
 class Greeting extends React.Component {
@@ -23,18 +23,18 @@ class Greeting extends React.Component {
 }
 ```
 
-(Until [recently](https://reactjs.org/docs/hooks-intro.html), that was the only way to use features like state.)
+(Até [recentemente](https://reactjs.org/docs/hooks-intro.html), essa era a única forma de usar funcionalidades como estado.)
 
-When you want to render a `<Greeting />`, you don’t care how it’s defined:
+Quando você quer renderizar um `<Greeting />`, pra você não importa como ele foi definido:
 
 ```jsx
 // Class or function — whatever.
 <Greeting />
 ```
 
-But *React itself* cares about the difference!
+O *próprio React*  cuida das diferenças!
 
-If `Greeting` is a function, React needs to call it:
+Se `Greeting` é uma função, o React precisa chama-la: 
 
 ```jsx
 // Your code
@@ -46,7 +46,7 @@ function Greeting() {
 const result = Greeting(props); // <p>Hello</p>
 ```
 
-But if `Greeting` is a class, React needs to instantiate it with the `new` operator and *then* call the `render` method on the just created instance:
+Mas se `Greeting` for uma classe, o React precisa instância-la usando o operador `new` e *então* chamar o método render da instância
 
 ```jsx
 // Your code
@@ -61,7 +61,7 @@ const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-In both cases React’s goal is to get the rendered node (in this example, `<p>Hello</p>`). But the exact steps depend on how `Greeting` is defined.
+Em ambos os casos o que o React precisa é ter o nó (node) renderizado (neste exemplo, `<p>Hello</p>`). Mas os passos  para isso vão depender de como `Greeting` foi definido.
 
 **So how does React know if something is a class or a function?**
 
